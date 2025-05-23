@@ -1,0 +1,21 @@
+replicaCount: 1
+
+image:
+  repository: <aws_account_id>.dkr.ecr.<region>.amazonaws.com/result
+  tag: latest
+  pullPolicy: Always
+
+efs:
+  server: <your-efs-id>.efs.<region>.amazonaws.com
+  path: /
+
+serviceAccount:
+  create: false
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
