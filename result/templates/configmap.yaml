@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: result-config
-data:
-  REDIS_PORT: "6379"
-  POSTGRES_PORT: "5432"
