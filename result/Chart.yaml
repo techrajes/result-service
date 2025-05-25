@@ -1,4 +1,4 @@
 apiVersion: v2
 name: result
 version: 0.1.0
-description: Result Service Helm Chart
+description: Helm chart for the result service
