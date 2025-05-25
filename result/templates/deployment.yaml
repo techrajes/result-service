@@ -1,27 +1,34 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Chart.Name }}
-  labels:
-    app: {{ .Chart.Name }}
+  name: result
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Chart.Name }}
+      app: result
   template:
     metadata:
       labels:
-        app: {{ .Chart.Name }}
+        app: result
     spec:
       containers:
-        - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        - name: result
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: POSTGRES_HOST
+              value: {{ .Values.env.POSTGRES_HOST }}
+            - name: POSTGRES_USER
+              value: {{ .Values.env.POSTGRES_USER }}
+            - name: POSTGRES_PASSWORD
+              value: {{ .Values.env.POSTGRES_PASSWORD }}
+            - name: POSTGRES_DB
+              value: {{ .Values.env.POSTGRES_DB }}
           volumeMounts:
-            - name: result-volume
+            - name: efs-storage
               mountPath: {{ .Values.efs.path }}
       volumes:
-        - name: result-volume
+        - name: efs-storage
           persistentVolumeClaim:
             claimName: result-pvc
