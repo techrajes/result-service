@@ -9,11 +9,18 @@ service:
   type: ClusterIP
   port: 80
 
+env:
+  POSTGRES_HOST: 10.0.139.153
+  POSTGRES_USER: myuser
+  POSTGRES_PASSWORD: mypassword
+  POSTGRES_DB: mydb
+
 efs:
   id: fs-0e1437fd22b2eef09
   path: /result-data
 
 resources: {}
+
 nodeSelector: {}
 tolerations: []
 affinity: {}
