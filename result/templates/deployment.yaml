@@ -1,37 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: result
+  name: {{ .Chart.Name }}
+  labels:
+    app: {{ .Chart.Name }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: result
+      app: {{ .Chart.Name }}
   template:
     metadata:
       labels:
-        app: result
+        app: {{ .Chart.Name }}
     spec:
       containers:
-        - name: result
+        - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          ports:
-            - containerPort: 80
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
-            - name: efs-storage
-              mountPath: /efs
-          env:
-            - name: REDIS_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: redis-secret
-                  key: host
-            - name: POSTGRES_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-secret
-                  key: host
+            - name: result-volume
+              mountPath: {{ .Values.efs.path }}
       volumes:
-        - name: efs-storage
+        - name: result-volume
           persistentVolumeClaim:
-            claimName: efs-claim
+            claimName: result-pvc
