@@ -5,17 +5,15 @@ image:
   tag: latest
   pullPolicy: Always
 
-efs:
-  server: fs-0e1437fd22b2eef09.efs.us-east-1.amazonaws.com
-  path: /
+service:
+  type: ClusterIP
+  port: 80
 
-serviceAccount:
-  create: false
+efs:
+  id: fs-0e1437fd22b2eef09
+  path: /result-data
 
 resources: {}
-
 nodeSelector: {}
-
 tolerations: []
-
 affinity: {}
