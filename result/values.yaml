@@ -16,8 +16,11 @@ env:
   POSTGRES_DB: mydb
 
 efs:
-  id: fs-0e1437fd22b2eef09
-  path: /result-data
+  fileSystemId: fs-0e1437fd22b2eef09  # Replace with your EFS File System ID
+  accessPointId: fsap-0029881c76e5dc0b2  # Replace with the new Access Point ID for result-service
+  storageClassName: efs-sc
+  storageSize: 5Gi
+  mountPath: /result/data  # Adjust as per your application's requirement
 
 resources: {}
 
