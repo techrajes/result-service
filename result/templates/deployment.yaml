@@ -26,9 +26,9 @@ spec:
             - name: POSTGRES_DB
               value: {{ .Values.env.POSTGRES_DB }}
           volumeMounts:
-            - name: efs-storage
-              mountPath: {{ .Values.efs.path }}
+            - name: efs-volume
+              mountPath: {{ .Values.efs.mountPath }}
       volumes:
-        - name: efs-storage
+        - name: efs-volume
           persistentVolumeClaim:
-            claimName: result-pvc
+            claimName: {{ .Release.Name }}-efs-pvc
